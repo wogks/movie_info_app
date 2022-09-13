@@ -31,7 +31,7 @@ class MovieViewModel extends ChangeNotifier {
   }
 
   Future getSortedListByTitle() async {
-    sortedMovieListByTitle = await _movieRepository.getSortedRusultByTitle();
+    sortedMovieListByTitle = await _movieRepository.getSortedResultByTitle();
     notifyListeners();
   }
 

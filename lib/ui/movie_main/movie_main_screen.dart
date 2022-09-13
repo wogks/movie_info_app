@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:movie_app/ui/components/movie_list.dart';
+import 'package:movie_app/ui/movie_main/movie_view_model.dart';
+import 'package:provider/provider.dart';
+
+import '../movie_search/movie_search_screen.dart';
 
 class MovieMainScreen extends StatefulWidget {
   const MovieMainScreen({super.key});
@@ -17,8 +20,73 @@ class _MovieMainScreenState extends State<MovieMainScreen> {
     _controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    final viewModel = context.watch<MovieViewModel>();
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.black,
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.home,
+              size: 30,
+            ),
+            onPressed: () {
+              viewModel.getList();
+              viewModel.getSortedListByTitle();
+              viewModel.getSortedListByVoteAverage();
+              viewModel.getSortedListByReleaseDate();
+            },
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.search,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const MovieSearchScreen()),
+              );
+            },
+          )
+        ],
+      ),
+      body: viewModel.movieList.isEmpty ||
+              viewModel.sortedMovieListByTitle.isEmpty ||
+              viewModel.sortedMovieListByVoteAverage.isEmpty ||
+              viewModel.sortedMovieByReleaseDate.isEmpty
+          ? Container(
+              color: Colors.black,
+              child: const Center(
+                child: CircularProgressIndicator(color: Colors.red),
+              ),
+            )
+          : Container(
+              color: Colors.black,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    MovieList(
+                        movieList: viewModel.movieList,
+                        filterTitle: '상영 중인 영화'),
+                    MovieList(
+                        movieList: viewModel.sortedMovieListByVoteAverage,
+                        filterTitle: '평점순'),
+                    MovieList(
+                        movieList: viewModel.sortedMovieListByTitle,
+                        filterTitle: '이름순'),
+                    MovieList(
+                        movieList: viewModel.sortedMovieByReleaseDate,
+                        filterTitle: '최신순'),
+                  ],
+                ),
+              ),
+            ),
+    );
   }
 }

@@ -18,38 +18,34 @@ class MovieRepositoryImpl implements MovieRepository {
     }
 
     final filteredList = movieDto.results!
-        .where((element) =>
-            element.posterPath != null && element.backdropPath != null)
+        .where((element) => element.posterPath != null && element.backdropPath != null)
         .map((e) {
       return Movie(
-          id: e.id ?? 0,
-          adult: e.adult ?? false,
-          backdropPath: e.backdropPath ??
-              'https://image.tmdb.org/t/p/w500${e.backdropPath}',
-          originalTitle: e.originalTitle ?? '',
-          overview: e.overview ?? '',
-          popularity: e.popularity ?? 0,
-          posterPath:
-              e.posterPath ?? 'https://image.tmdb.org/t/p/w500${e.posterPath}',
-          releaseDate: e.releaseDate ?? '',
-          title: e.title ?? '',
-          voteAverage: e.voteAverage ?? 0);
+        id: e.id ?? 0,
+        adult: e.adult ?? false,
+        backdropPath: 'https://image.tmdb.org/t/p/w500${e.backdropPath}',
+        originalTitle: e.originalTitle ?? '',
+        overview: e.overview ?? '',
+        popularity: e.popularity ?? 0,
+        posterPath: 'https://image.tmdb.org/t/p/w500${e.posterPath}',
+        releaseDate: e.releaseDate ?? '',
+        title: e.title ?? '',
+        voteAverage: e.voteAverage ?? 0,
+      );
     }).toList();
+
     return filteredList;
   }
 
   @override
   Future<List<Movie>> getSearchResult(String query) async {
-    final movieDto = await _api.getSearchMoviewList(query);
+    final movieDto = await _api.getSearchMovieList(query);
 
     if (movieDto.results == null) {
       return [];
     }
 
-    return movieDto.results!
-        .where((element) =>
-            element.posterPath != null && element.backdropPath != null)
-        .map(
+    return movieDto.results!.where((element) => element.posterPath != null && element.backdropPath != null).map(
       (e) {
         return Movie(
           id: e.id ?? 0,
@@ -68,7 +64,7 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<List<Movie>> getSortedResultByReleaseDate() async {
+  Future<List<Movie>> getSortedResultByTitle() async {
     final movies = await getResult();
     movies.sort((a, b) => a.originalTitle.compareTo(b.originalTitle));
     return movies;
@@ -82,7 +78,7 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<List<Movie>> getSortedRusultByTitle() async {
+  Future<List<Movie>> getSortedResultByReleaseDate() async {
     final movies = await getResult();
     movies.sort((b, a) => a.releaseDate.compareTo(b.releaseDate));
     return movies;
