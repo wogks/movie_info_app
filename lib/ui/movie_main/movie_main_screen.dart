@@ -63,7 +63,7 @@ class _MovieMainScreenState extends State<MovieMainScreen> {
           ? Container(
               color: Colors.black,
               child: const Center(
-                child: CircularProgressIndicator(color: Colors.red),
+                child: CircularProgressIndicator(color: Colors.white),
               ),
             )
           : Container(

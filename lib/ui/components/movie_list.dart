@@ -43,7 +43,7 @@ class MovieList extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => MovieDetailScreen(),
+                          builder: (context) => MovieDetailScreen(movie),
                         ),
                       );
                     },
