@@ -30,9 +30,12 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.network(
-              widget.movie.backdropPath,
-              fit: BoxFit.cover,
+            Hero(
+              tag: 'fly',
+              child: Image.network(
+                widget.movie.backdropPath,
+                fit: BoxFit.cover,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15.0, left: 5, right: 5),

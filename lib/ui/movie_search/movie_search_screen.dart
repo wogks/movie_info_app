@@ -116,10 +116,13 @@ class _MovieSearchScreenState extends State<MovieSearchScreen> {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(5),
-                                    child: Image.network(
-                                      viewModel
-                                          .movieSearchList[index].backdropPath,
-                                      width: 160,
+                                    child: Hero(
+                                      tag: 'fly',
+                                      child: Image.network(
+                                        viewModel
+                                            .movieSearchList[index].backdropPath,
+                                        width: 160,
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(
