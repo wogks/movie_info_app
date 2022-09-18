@@ -83,6 +83,15 @@ class _MovieMainScreenState extends State<MovieMainScreen> {
                     MovieList(
                         movieList: viewModel.sortedMovieByReleaseDate,
                         filterTitle: '최신순'),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Text(
+                          '라이센스',
+                          style: TextStyle(color: Colors.white54),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
