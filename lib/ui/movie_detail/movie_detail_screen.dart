@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../domain/model/movie.dart';
+import '../movie_main/movie_view_model.dart';
 
 class MovieDetailScreen extends StatefulWidget {
   final Movie movie;
@@ -13,6 +15,7 @@ class MovieDetailScreen extends StatefulWidget {
 class _MovieDetailScreenState extends State<MovieDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<MovieViewModel>();
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -143,7 +146,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 Column(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        viewModel.addMovie(widget.movie.title, widget.movie.backdropPath);
+                      },
                       icon: const Icon(
                         Icons.add,
                         color: Colors.white,

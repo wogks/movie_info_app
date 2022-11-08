@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/ui/components/movie_list.dart';
+import 'package:movie_app/ui/liked_movie/like_movie_screen.dart';
 import 'package:movie_app/ui/movie_main/movie_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -31,14 +32,14 @@ class _MovieMainScreenState extends State<MovieMainScreen> {
         actions: [
           IconButton(
             icon: const Icon(
-              Icons.home,
+              Icons.star,
               size: 30,
             ),
             onPressed: () {
-              viewModel.getList();
-              viewModel.getSortedListByTitle();
-              viewModel.getSortedListByVoteAverage();
-              viewModel.getSortedListByReleaseDate();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LikedMovieScreen(),),
+              );
             },
           ),
           IconButton(
