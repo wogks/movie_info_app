@@ -2,6 +2,8 @@
   import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../auth_gate/auth_gate.dart';
+
 
 final GoRouter router = GoRouter(
   initialLocation: '/',
@@ -10,15 +12,6 @@ final GoRouter router = GoRouter(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
         return const AuthGate();
-      },
-    ),
-    GoRoute(
-      path: '/write',
-      builder: (BuildContext context, GoRouterState state) {
-        return ChangeNotifierProvider(
-          create: (_) => WriteViewModel(),
-          child: const WriteScreen(),
-        );
       },
     ),
   ],
